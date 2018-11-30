@@ -1,13 +1,13 @@
 # Contact CLI (Database version)
 
 ## Project Description
-The CLI Contact App is an app that allow you to:
+The CLI Contact App is an app that allows you to:
 - Create a contact and save it to an SQL Database
-- Read or display these contacts as a whole and separately (with more details).
+- Read or display these contacts as a whole or separately (with more details).
 - Update a contact in the the database.
 - Delete a contact in the database.
 
-A contact should be defined at least with his:
+A contact should be defined at least with this:
 - name
 - phone number
 - address
@@ -20,7 +20,7 @@ A contact should be defined at least with his:
 4. Using TDD (Test Driven Development) to test each feature.
 
 ## Acceptation Criteria
-- The project should comm unicate effectively with the Databse (no inconsistency in the data)
+- The project should communicate effectively with the database (no inconsistency in the data)
 - Git/Github
   - Git should be used effectively for team collaboration:
     It means that each programmer on the project can work on separate branches and merge them 
