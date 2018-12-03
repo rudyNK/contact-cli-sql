@@ -35,3 +35,12 @@ A contact should be defined at least with this:
       After being saved the database will return the id of the created contact. Then, the programmer
       can use this id to query the database to confirm the creation of the saved contact.
   
+  ## Instructions
+  To start working on your project you need to:
+  - fork this repo
+  - clone it on your machine
+  - Define your depencencies in the Gemfile
+    - SQLite3
+    - Terminal Table (optional)
+    - Rspec
+    - ...
