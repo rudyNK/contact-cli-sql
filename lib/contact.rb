@@ -127,6 +127,13 @@ class Contact
       DB[:conn].execute(sql)
   
   end
+
+  def self.deleteall
+    sql = "DELETE FROM contact"
+  DB[:conn].execute(sql)[0]
+  puts "            " 
+  puts "All your contacts has been deleted 👍\n\n"
+  end
   
   
   def self.dropcontact(name)

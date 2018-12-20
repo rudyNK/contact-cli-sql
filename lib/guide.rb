@@ -37,6 +37,9 @@ class Guide
     case action
     when 'list'
       Fi.output_action_header("Listing contact")
+      if Contact.all.empty?
+        puts "    OOPS, THERE'S NO CONTACT, ADD SOME!"
+      else
       puts "----------------------------------------------------------------------" 
       puts "|ID |   FULL NAME    |   ADRESS    |  E-MAIL ADRESS   | PHONE NUMBER |"
       puts "----------------------------------------------------------------------"
@@ -44,14 +47,14 @@ class Guide
        Contact.all.each do |row|
         puts "| #{row.join " | " } |"
      end
+    end
        puts "    "
     when 'find'
       find
     when 'add'
       add
     when 'delete'
-      puts Fi.output_action_header("Deleting contact")
-      Contact.deletecontact
+     delete
     when 'edit'
       modify
     when 'exit'
@@ -66,10 +69,13 @@ class Guide
   def self.find(keyword="")
     Fi.output_action_header("Find a contact")
     name = gets.strip()
+    # if Contact.find_by_name(name).empty?
+    #   puts "THERE'S NO CONTACT WITH THIS NAME, ADD IT"
+    # else
     res = Contact.find_by_name(name)
     # binding.pry
     if res.nil?
-        puts "No Contact Found!"
+      puts "THERE'S NO CONTACT WITH THIS NAME, ADD IT"
     else
   puts "            "  
   puts "We found the following results:"
@@ -110,7 +116,27 @@ else
    Guide.launch!
 end
   end
-  
+
+  def self.delete
+    puts Fi.output_action_header("Deleting contact")
+    puts "1-Choose Contact to Delete"
+    puts "2-Delete all"
+    puts "3- Back to menu"
+    puts "  "
+    print "> "
+
+answer = gets.strip().downcase
+if answer == '1'
+    Contact.deletecontact
+elsif answer == '2'
+  Contact.deleteall
+elsif answer == '3'
+  launch!
+else
+  puts "Invalide Command"
+  end
+end
+
   def self.introduction
     puts Fi.cool"\n\n      <<< Welcome to the contact list >>>    \n
     This is an interactive guide to help you.\n".upcase
