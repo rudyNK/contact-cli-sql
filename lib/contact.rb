@@ -9,7 +9,6 @@ class Contact
       def initialize (id: nil , name:, adress:, email:, phone:)
           @id = id
           @name = name
-          @album = album
           @adress = adress
           @phone = phone
       end
@@ -28,7 +27,7 @@ class Contact
           DB[:conn].execute(sql)
       end
       
-      def save_contacts
+      def save
           sql = <<-SQL
             INSERT INTO contact (name, adress, email, phone) 
             VALUES (?, ?, ?, ?)
@@ -40,23 +39,6 @@ class Contact
       end
       
       
-      # def self.create_file(name:, adress:, email:, phone:)
-      #     contact = Contact.new(name, adress, email, phone)
-      #     contact.save
-      #     contact
-      # end
-  
-      # def self.find_by_name(name)
-      #     sql = "SELECT * FROM contact WHERE name = ?"
-      #     result = DB[:conn].execute(sql, name)
-      #    if result.size > 0 
-      #     rmi = result[0]
-      #       Contact.new(rmi[0], rmi[1], rmi[2])
-      #    else
-      #       nil
-      #    end
-      # end
-     
         def self.new_from_db(row)
           
           Contact.new(id:row[0],name:row[1],adress:row[2],phone:row[3],email:row[4])
@@ -88,19 +70,13 @@ class Contact
   
          raw_result= DB[:conn].execute(sql, name)[0]
          #binding.pry
+         if raw_result.nil? 
+          puts "  "
+          else
          self.new_from_db(raw_result);
-          # .map do |row|
-          #   self.new_from_db(row)
-          # end
-  
+          end
   end
   
-  # def printKontak
-  # puts "#{self.id} : #{self.name} : #{self.adress} : #{self.email} : #{self.phone}"
-  
-  # end
-    
-    
      def self.build_using_questions
       args = {}
       print "Contact name: "
@@ -118,7 +94,7 @@ class Contact
       c = self.new(**args)
   
       #create_file(name:, adress:, email:, phone:)
-      c.save_contacts
+      c.save
   
     end
   
@@ -155,7 +131,7 @@ class Contact
   print "> "
   name = gets.strip()
   puts "You're  deleting '#{name}' ?"
-  puts "no or yes?."
+  puts "Are you sure, Yes or No?."
   print "> "
   answer = gets.strip().downcase
   if answer == "yes"
