@@ -113,7 +113,7 @@ answer = gets.strip().downcase
 if answer == "yes"
     Contact.build_using_questions2
 else 
-   Guide.launch!
+   launch!
 end
   end
 
