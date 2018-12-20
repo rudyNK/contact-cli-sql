@@ -103,18 +103,16 @@ class Guide
   def self.modify
     puts "            " 
     Fi.output_action_header("Editing contact")
-puts "type the name of the contact to modify"
-print "> "
-name = gets.strip()
-puts "    You're about to editing '#{name}' ?.\n"
-puts " Do you want to continue,'yes or no'?."
-print "> "
-answer = gets.strip().downcase
-if answer == "yes"
+# name = gets.strip()
+# puts "    You're about to editing '#{name}' ?.\n"
+# puts " Do you want to continue,'yes or no'?."
+# print "> "
+# answer = gets.strip().downcase
+# if answer == "yes"
     Contact.build_using_questions2
-else 
-   launch!
-end
+# else 
+#    launch!
+# end
   end
 
   def self.delete

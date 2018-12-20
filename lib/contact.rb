@@ -115,8 +115,7 @@ class Contact
   def self.dropcontact(name)
   sql = "DELETE FROM contact WHERE (name) = ?;"
   DB[:conn].execute(sql,name)[0]
-  puts "            " 
-  puts "contact deleted 👍"
+ 
   
   end
   
@@ -137,6 +136,8 @@ class Contact
   if answer == "yes"
       #d = deletecontact.new
       dropcontact(name)
+       puts "            " 
+  puts "contact deleted 👍"
   else 
      Guide.launch!
   end
@@ -151,37 +152,56 @@ class Contact
     end
   
     def update
-      sql = "UPDATE contact SET adress = ?, phone = ?, email = ?, WHERE name = ?"
+      sql = "UPDATE contact SET adress = ?, phone = ?, email = ? WHERE name = ?"
       DB[:conn].execute(sql, self.name, self.adress, self.email, self.phone)
-      @id = DB[:conn].execute("SELECT last_insert_rowid() FROM contact")[0][0]
+      # @id = DB[:conn].execute("SELECT last_insert_rowid() FROM contact")[0][0]
     end
   
     def self.build_using_questions2
-      args = {}
-      print "Contact name: "
-      args[:name] = gets.chomp.strip
-  
-      print "Adress: "
-      args[:adress] = gets.chomp.strip
+      puts "enter the name you whish to alter!"
+      name = gets.strip()
+
+      all.each do |row|
       
-      print "Phone Number: "
-      args[:phone] = gets.chomp.strip
+        
+       if name ==row[1]
+          puts "    You're about to editing '#{name}' ?.\n"
+          puts " Do you want to continue,'yes or no'?."
+          print "> "
+          answer = gets.strip().downcase
+          if answer == "yes"
+        args = {}
+        puts " "
+        print "Contact name: "
+        args[:name] = gets.chomp.strip
   
-      print "E-Mail Adress: "
-      args[:email] = gets.chomp.strip
+        print "Adress: "
+        args[:adress] = gets.chomp.strip
       
-      c = self.new(**args)
-  
-      #create_file(name:, adress:, email:, phone:)
-      c.update
-  
+        print "Phone Number: "
+        args[:phone] = gets.chomp.strip
+        
+        print "E-Mail Adress: "
+        args[:email] = gets.chomp.strip
+      
+        c = new(args)
+        
+        c.update
+        c.save
+        c.dropcontact(name)
+        #create_file(name:, adress:, email:, phone:)
+        puts "   "
+        puts "Contact Updated!👍\n "
+          end
+      end
+    end
     end
     
-    #def import_line(line)
-      #line_array = line.split("\t")
-      #@name, adress, @phone, @email = line_array
-      #return self
-    #end
+    def import_line(line)
+      line_array = line.split("\t")
+      @name, adress, @phone, @email = line_array
+      return self
+    end
     
     
     
