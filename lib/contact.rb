@@ -113,7 +113,7 @@ class Contact
   
   
   def self.dropcontact(name)
-  sql = "DELETE FROM contact WHERE (name) = ?;"
+  sql = "DELETE FROM contact WHERE(name) = ?;"
   DB[:conn].execute(sql,name)[0]
  
   
@@ -154,8 +154,9 @@ class Contact
     def update
       sql = "UPDATE contact SET adress = ?, phone = ?, email = ? WHERE name = ?"
       DB[:conn].execute(sql, self.name, self.adress, self.email, self.phone)
-      # @id = DB[:conn].execute("SELECT last_insert_rowid() FROM contact")[0][0]
     end
+
+ 
   
     def self.build_using_questions2
       puts "enter the name you whish to alter!"
@@ -164,7 +165,7 @@ class Contact
       all.each do |row|
       
         
-       if name ==row[1]
+       if name == row[1]
           puts "    You're about to editing '#{name}' ?.\n"
           puts " Do you want to continue,'yes or no'?."
           print "> "
@@ -188,7 +189,7 @@ class Contact
         
         c.update
         c.save
-        c.dropcontact(name)
+        dropcontact(name)
         #create_file(name:, adress:, email:, phone:)
         puts "   "
         puts "Contact Updated!👍\n "
@@ -202,7 +203,12 @@ class Contact
       @name, adress, @phone, @email = line_array
       return self
     end
+   
     
+    def self.alphabetic_order
+     sql = "SELECT * FROM contacts ORDER BY name ASC"
+     DB[:conn].execute(sql)
+   end
     
     
   end

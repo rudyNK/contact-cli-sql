@@ -1,6 +1,6 @@
 # require_relative './config.rb'
 require 'pry'
-
+#The Guide class
 class Guide
   class Config
     @@actions = ['list', 'find', 'add', 'delete', 'edit', 'exit']
@@ -47,6 +47,7 @@ class Guide
        Contact.all.each do |row|
         puts "| #{row.join " | " } |"
      end
+
     end
        puts "    "
     when 'find'
@@ -56,7 +57,7 @@ class Guide
     when 'delete'
      delete
     when 'edit'
-      modify
+      modify      
     when 'exit'
       conclusion
        exit
@@ -65,7 +66,7 @@ class Guide
     end
   end
 
-  
+  #The find methode
   def self.find(keyword="")
     Fi.output_action_header("Find a contact")
     name = gets.strip()
@@ -88,8 +89,9 @@ class Guide
     puts "            " 
       puts "Find using a key phrase to search into the contact list."
       puts "Examples: ' Jean', ' Pierre', ' Carly'\n\n"
-  end
-  
+  end  
+
+  #The add methode
   def self.add
     Fi.output_action_header("Add a contact")
      
@@ -115,6 +117,7 @@ class Guide
 # end
   end
 
+  #The delete methode
   def self.delete
     puts Fi.output_action_header("Deleting contact")
     puts "1-Choose Contact to Delete"
@@ -134,7 +137,8 @@ else
   puts "Invalide Command"
   end
 end
-
+ 
+  #The intro Game
   def self.introduction
     puts Fi.cool"\n\n      <<< Welcome to the contact list >>>    \n
     This is an interactive guide to help you.\n".upcase
@@ -144,6 +148,8 @@ end
   	puts Fi.cool"\n<<< Goodbye, See you Soon! >>>\n\n\n".upcase
   end
   
+
+  # Go to the menu
   def self.menu
     Fi.output_action_header("--- MAIN MENU ---")
     
@@ -154,7 +160,10 @@ end
     puts "                      5- DELETE A CONTACT"
     puts "                      6- EXIT THE APP\n\n"
   end
-	
+  
+  
+
+
 	#private
 	
 	# def self.output_action_header(text)
